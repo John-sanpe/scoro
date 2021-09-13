@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "*.S": "gas",
+        "list.h": "c",
+        "stdarg.h": "c",
+        "list": "c",
+        "typeindex": "cpp",
+        "typeinfo": "cpp",
+        "unistd.h": "c",
+        "stdbool.h": "c"
+    }
+}
