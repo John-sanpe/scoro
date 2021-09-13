@@ -1,4 +1,0 @@
-this project is called small coroutine
-
-他本质上是一个协程库 目前调度算法使用fifo
-首先创建一个pthread线程 然后在这个子线程里面运行协程
