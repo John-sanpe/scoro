@@ -70,8 +70,13 @@ struct scoro_worker *scoro_worker_best(void)
 
 int scoro_worker_wakeup(struct scoro_worker *worker, scoro_pth_flag *flags)
 {
-    return scoro_pthread_create(&worker->pth, flags,
-                                scoro_worker_loop, worker);
+    return scoro_pthread_create(&worker->pth, flags, scoro_worker_loop, worker);
+}
+
+void scoro_worker_suspend(struct scoro_worker *worker)
+{
+    scoro_pthread_cancel(worker->pth);
+    worker->pth = 0;
 }
 
 struct scoro_work *scoro_work_create(scoro_fun_t fun, void *data, const char *name, ...)
@@ -112,5 +117,8 @@ struct scoro_worker *scoro_worker_create(const char *name, ...)
 
 void scoro_worker_remove(struct scoro_worker *worker)
 {
+    if (worker->pth)
+        scoro_worker_suspend(worker);
     scoro_free(worker);
+    list_del(&worker->list);
 }

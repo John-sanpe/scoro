@@ -57,4 +57,9 @@ static inline int scoro_pthread_create(scoro_pth *pth, scoro_pth_flag* flags,
     return pthread_create(pth, flags, fun, args);
 }
 
+static inline void scoro_pthread_cancel(scoro_pth pth)
+{
+    pthread_cancel(pth);
+}
+
 #endif  /* _SCORO_OSDEP_H_ */
