@@ -1,0 +1,9 @@
+#compile output
+*.o
+*.a
+*.so
+example-simple
+#vscode conf
+.vscode/
+
+
