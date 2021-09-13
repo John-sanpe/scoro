@@ -6,6 +6,7 @@
 #ifndef _SCORO_H_
 #define _SCORO_H_
 
+#include <stddef.h>
 #include "scoro_osdep.h"
 #include "list.h"
 

@@ -6,8 +6,6 @@
 #ifndef _SCORO_OSDEP_H_
 #define _SCORO_OSDEP_H_
 
-#include <stddef.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdarg.h>
 #include <string.h>
@@ -51,8 +49,7 @@ static inline void scoro_free(void *block)
     return free(block);
 }
 
-static inline int scoro_pthread_create(scoro_pth *pth, scoro_pth_flag* flags,
-                                       void *(*fun)(void *), void *args)
+static inline int scoro_pthread_create(scoro_pth *pth, scoro_pth_flag* flags, void *(*fun)(void *), void *args)
 {
     return pthread_create(pth, flags, fun, args);
 }

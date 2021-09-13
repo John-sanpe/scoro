@@ -2,6 +2,7 @@
 #ifndef _SCORO_LIST_H_
 #define _SCORO_LIST_H_
 
+#include <stdbool.h>
 #include "scoro_osdep.h"
 
 typedef struct list_head{
