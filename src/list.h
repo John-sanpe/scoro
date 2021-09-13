@@ -2,16 +2,7 @@
 #ifndef _SCORO_LIST_H_
 #define _SCORO_LIST_H_
 
-/**
- * container_of - cast a member of a structure out to the containing structure
- * @ptr: the pointer to the member.
- * @type: the type of the container struct this is embedded in.
- * @member: the name of the member within the struct.
- */
-#define container_of(ptr, type, member) ({                  \
-    const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
-    (type *)( (char *)__mptr - offsetof(type,member) );     \
-})
+#include "scoro_osdep.h"
 
 typedef struct list_head{
     struct list_head *prev, *next;
@@ -50,7 +41,6 @@ static inline void list_add(struct list_head *head,
  *
  * @return None
  */
-
 static inline void list_add_prev(struct list_head *node,
                    struct list_head *new)
 {
@@ -65,7 +55,6 @@ static inline void list_add_prev(struct list_head *node,
  *
  * @return None
  */
-
 static inline void list_add_next(struct list_head *node,
                    struct list_head *new)
 {
@@ -80,7 +69,6 @@ static inline void list_add_next(struct list_head *node,
  *
  * @return None
  */
-
 static inline void list_del(struct list_head *node)
 {
     node->prev->next = node->next;
@@ -119,29 +107,11 @@ static inline void list_move_tail(struct list_head *head, struct list_head *node
     list_add_prev(head, node);
 }
 
-/**
- * list_check_first:
- *       Check whether the node is a header
- * @para node: list head to add it next
- * @para new:  new entry to be added
- *
- * @return None
- */
-
 static inline bool list_check_first(struct list_head *head,
                       struct list_head *node)
 {
     return node->prev == head;
 }
-
-/**
- * list_check_end:
- *       Check whether the node is a ending
- * @para node: list head to add it next
- * @para new:  new entry to be added
- *
- * @return None
- */
 
 static inline bool list_check_end(struct list_head *head,
                      struct list_head *node)
@@ -149,47 +119,10 @@ static inline bool list_check_end(struct list_head *head,
     return node->next == head;
 }
 
-/**
- * list_check_around:
- *       Check whether the node is a ending
- * @para node: list head to add it next
- * @para new:  new entry to be added
- *
- * @return None
- */
-
-static inline bool list_check_around(struct list_head *prev,
-                     struct list_head *next)
-{
-    return prev->next == next;
-}
-
-/**
- * list_check_empty:
- *       add a new node next old node
- * @para head: list head to check
- *
- * @return if it's empty, return true
- */
-
-static inline bool list_check_empty(struct list_head *head)
-{
-    return head->next == head;
-}
-
-/**
- * list_add_next:
- *       add a new node next old node
- * @para node: list head to add it next
- * @para new:  new entry to be added
- *
- * @return None
- */
-
-static inline bool list_length(struct list_head *head)
-{
-    return 0;
-}
+#define container_of(ptr, type, member) ({                  \
+    const typeof( ((type *)0)->member ) *__mptr = (ptr);    \
+    (type *)( (char *)__mptr - offsetof(type,member) );     \
+})
 
 /**
  * list_entry - get the struct for this entry
@@ -277,18 +210,4 @@ static inline bool list_length(struct list_head *head)
          &pos->member != (head);                                \
          pos = list_next_entry(pos, member))
 
-/**
- * list_for_each_entry_safe - iterate over list of given type safe against removal of list entry
- * @pos:	the type * to use as a loop cursor.
- * @n:		another type * to use as temporary storage
- * @head:	the head for your list.
- * @member:	the name of the list_head within the struct.
- */
-#define list_for_each_entry_safe(pos, n, head, member)          \
-    for (pos = list_first_entry(head, typeof(*pos), member),    \
-         n = list_next_entry(pos, member);                      \
-         !list_entry_is_head(pos, head, member);                \
-         pos = n, n = list_next_entry(n, member))
-
 #endif  /* _LIST_H_ */
-

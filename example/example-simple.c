@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
     scoro_work_run(worker2, scoro_work2, (void *)4, "work4");
 
     printf("worker1 works nr: %d\n", worker1->work_num);
-    printf("worker2 works nr: %d\n", worker1->work_num);
+    printf("worker2 works nr: %d\n", worker2->work_num);
 
     for (;; sleep(1));
     return 0;

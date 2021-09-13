@@ -1,7 +1,5 @@
 # SPDX-License-Identifier: GPL-2.0-or-later
 CFLAGS = -O -Wall -Isrc
-
-
 all: scoro example
 
 scoro:
@@ -10,8 +8,6 @@ scoro:
 	rm -rf scoro.o 
 example:
 	gcc -g -I$(CFLAGS) example/example-simple.c scoro.a -o example-simple -lpthread
-
-
 
 clean:
 	rm -f example-simple
